@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    Stock App | Home
+{% endblock %}
+
+{% block content %}
+    <h1>Stock Portfolio</h1>
+    <br>
+    <a href=""></a>
+    <form class="form-inline my-2 my-lg-0" method="post" action="{% url 'stockapp:home' %}">
+        {% csrf_token %}
+      <input class="form-control mr-sm-2" type="search" placeholder="Stock Ticker" name="ticker">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add To Portfolio</button>
+    </form>
+
+    <br>
+    <a href="https://iextrading.com/trading/eligible-symbols/" target="_blank">
+        Click here to see the list of eligible stock tickers
+    </a>
+    <br><br>
+
+    {% if stock_data %}
+        {% if not 'error' in stock_data.keys %}
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Market Capital</th>
+                        <th scope="col">Opening Price</th>
+                        <th scope="col">Latest Price</th>
+                        <th scope="col">Change</th>
+                        <th scope="col">Change Percent</th>
+                        <th scope="col">52 Week High</th>
+                        <th scope="col">52 Week Low</th>
+                        <th scope="col">Remove Stock</th>
+                    </tr>
+                </thead>
+
+                {% for ticker, data in stock_data.items %}
+                    <tbody>
+                        <tr>
+                            <th scope="row">{{ data.quote.companyName }}</th>
+                            <td>{{ data.quote.marketCap }}</td>
+                            <td>{{ data.quote.open }}</td>
+                            <td>{{ data.quote.latestPrice }}</td>
+                            <td>{{ data.quote.change }}</td>
+                            <td>{{ data.quote.changePercent }}</td>
+                            <td>{{ data.quote.week52High }}</td>
+                            <td>{{ data.quote.week52Low }}</td>
+                            <td><a href="{% url 'stockapp:remove' ticker=ticker %}">Remove</a></td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% else %}
+        {{ error }}
+    {% endif %}
+{% endblock %}

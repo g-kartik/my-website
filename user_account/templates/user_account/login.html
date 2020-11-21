@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-md-6 offset-md-3">
+        <br>
+        <h1 align="center">Login</h1>
+        <br>
+        <form method="post" action="{% url 'user_account:login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" class="form-control" name="username" placeholder="Username" >
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+
+            <br>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-secondary">Login</button>
+            </div>
+        </form>
+
+        <br><br>
+
+        <div class="text-center">
+            <h6>Don't have an account?</h6>
+                <a href="{% url 'user_account:signup' %}">
+                    <button type="submit" class="btn btn-secondary">Sign Up</button>
+                </a>
+        </div>
+    </div>
+
+
+{% endblock %}
