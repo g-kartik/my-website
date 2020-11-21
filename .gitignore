@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+
+# Pycharm
+.idea/
+
+# Django
+db.sqlite3
+
+# Env
+.env
