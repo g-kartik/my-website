@@ -18,7 +18,7 @@ class LoginUser(View):
         if user is not None:
             login(request, user)
             messages.success(request, 'You are now logged in')
-            return redirect('todo:home')
+            return redirect('mysite:home')
         else:
             messages.success(request, 'Your username and password did not match. Please try again')
             return redirect('user_account:login')

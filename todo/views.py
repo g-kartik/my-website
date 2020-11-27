@@ -8,9 +8,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class Home(LoginRequiredMixin, View):
     login_url = '/user-account/login'
     redirect_field_name = '/todo'
+
     def get(self, request):
         if request.user.is_authenticated:
-            todo_list = ToDoItems.objects.filter(user__username=request.user.username)
+            todo_list = ToDoItems.objects.filter(user=request.user)
             return render(request, 'todo/home.html', {'todo_list': todo_list})
         else:
             return render(request, 'todo/home.html')

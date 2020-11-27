@@ -15,7 +15,7 @@ class Home(LoginRequiredMixin, generic.View):
     login_url = '/user-account/login/'
 
     def get(self, request):
-        ticker_set = MyStocks.objects.all()
+        ticker_set = MyStocks.objects.filter(user=request.user)
         tickers = ""
         for t in ticker_set:
             tickers += t.ticker + ","
@@ -33,6 +33,7 @@ class Home(LoginRequiredMixin, generic.View):
     def post(self, request):
         request.POST = request.POST.copy()
         request.POST['ticker'] = request.POST['ticker'].upper()
+        request.POST['user'] = request.user
         api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + request.POST['ticker'] +
                         "/quote?token=pk_e959396a8df04287a26278d566654f6e")
         if api_request.status_code == 404:
