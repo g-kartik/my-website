@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.views import generic
 import requests
 import json
@@ -15,7 +15,7 @@ class Home(LoginRequiredMixin, generic.View):
     login_url = '/user-account/login/'
 
     def get(self, request):
-        ticker_set = MyStocks.objects.filter(user=request.user)
+        ticker_set = get_list_or_404(MyStocks, user=request.user)
         tickers = ""
         for t in ticker_set:
             tickers += t.ticker + ","
@@ -48,7 +48,7 @@ class Home(LoginRequiredMixin, generic.View):
 
 @login_required(login_url='/user-account/login')
 def remove_stock(request, ticker):
-    stock = MyStocks.objects.get(ticker=ticker)
+    stock = get_object_or_404(MyStocks, ticker=ticker)
     stock.delete()
     messages.success(request, 'Stock removed successfully')
     return redirect('stockapp:home')
