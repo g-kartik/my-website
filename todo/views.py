@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
-from django.views import View
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import View
 from django.contrib import messages
 from .models import ToDoItems
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,7 +11,7 @@ class Home(LoginRequiredMixin, View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            todo_list = get_list_or_404(ToDoItems, user=request.user)
+            todo_list = ToDoItems.objects.filter(user=request.user)
             return render(request, 'todo/home.html', {'todo_list': todo_list})
         else:
             return render(request, 'todo/home.html')

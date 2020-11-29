@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
-from django.views import generic
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import View
 import requests
 import json
 from .models import MyStocks
@@ -11,11 +11,11 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
-class Home(LoginRequiredMixin, generic.View):
+class Home(LoginRequiredMixin, View):
     login_url = '/user-account/login/'
 
     def get(self, request):
-        ticker_set = get_list_or_404(MyStocks, user=request.user)
+        ticker_set = MyStocks.objects.filter(user=request.user)
         tickers = ""
         for t in ticker_set:
             tickers += t.ticker + ","
