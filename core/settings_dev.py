@@ -11,9 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-import django_heroku
 from decouple import config
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['www.g-karthik.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -85,13 +83,10 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': Path(BASE_DIR / 'db.sqlite3'),
     }
 }
-
-DATABASES['default'] = dj_database_url.config(default='postgres://dxjjrdhctoxjqn:8ec705115a2a7720425b7c7240587322eefaa80e4e5c1e67116d56e4d7c5961d@ec2-54-147-126-202.compute-1.amazonaws.com:5432/dbiegeh5ef6e9g')
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
 
 CACHES = {
     'default': {
@@ -137,6 +132,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-django_heroku.settings(locals())
