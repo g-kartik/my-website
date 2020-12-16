@@ -38,27 +38,21 @@
                        <i class="fas fa-file-pdf"></i> Resume
                     </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://www.github.com/g-kartik/">
+                    <i class="fab fa-github"></i> Github
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://www.linkedin.com/in/g-kartik/">
+                    <i class="fab fa-linkedin"></i> Linkedin
+                </a>
+            </li>
         </ul>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                        <a class="nav-link" href="https://www.github.com/g-kartik/">
-                            <i class="fab fa-github"></i> Github
-                        </a>
-                </li>
-                <li class="nav-item">
-                        <a class="nav-link" href="https://www.linkedin.com/in/g-kartik/">
-                            <i class="fab fa-linkedin"></i> Linkedin
-                        </a>
-
                 {% if not user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'user_account:signup' %}">
-                            <i class="fas fa-user-plus"></i> Sign Up
-                        </a>
-                    </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'user_account:login' %}">
                             <i class="fas fa-sign-in-alt"></i> Login
@@ -89,17 +83,23 @@
         </div>
     </nav>
 
+    {% block alert %}
+    {% endblock %}
+
     <!-- Flash Messages -->
     {% if messages %}
     <br>
-    {% for message in messages %}
-    <div class="container alert alert-warning alert-dismissible fade show" role="alert">
-            {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="container">
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+
     {% endif %}
 
     <br>

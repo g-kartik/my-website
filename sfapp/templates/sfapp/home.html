@@ -4,6 +4,17 @@
 Home
 {% endblock %}
 
+{% block alert %}
+    <!-- Login Request   -->
+    <div class="container">
+        {% if not user.is_authenticated %}
+            <div class="alert alert-info" role="alert">
+              Please login to save the app data to your account
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
 {% block content %}
 <div class="text-center">
     <h1>Stack Overflow Advanced Search API Interface</h1>
