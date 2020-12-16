@@ -169,7 +169,7 @@ def cookie_test(request):
         Home.cookie_test_passed = True
     else:
         request.session.set_test_cookie()
-        request.session.set_expiry(0)
+        request.session.set_expiry(None)
         messages.success(request, "Please ensure your browser accepts cookies")
     return None
 
