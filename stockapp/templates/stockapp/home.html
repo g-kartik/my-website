@@ -4,6 +4,17 @@
     Stock App | Home
 {% endblock %}
 
+{% block alert %}
+    <!-- Login Request   -->
+    <div class="container">
+        {% if not user.is_authenticated %}
+            <div class="alert alert-info" role="alert">
+              Please login if you want to save your app data on browser restart
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
 {% block content %}
     <h1>Stock Portfolio</h1>
     <br>
