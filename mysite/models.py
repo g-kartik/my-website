@@ -120,5 +120,6 @@ def create_object(request, model, **kwargs):
         session = UserSession.objects.create()
         obj = model.objects.create(session=session, **kwargs)
         request.session['session_id'] = obj.session_id
+        request.session.set_expiry(0)
     return obj
 
