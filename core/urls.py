@@ -22,5 +22,5 @@ urlpatterns = [
     path('todo/', include('todo.urls')),
     path('stock/', include('stockapp.urls')),
     path('user_account/', include('user_account.urls')),
-    path('', include('sfapp.urls'), name='sfapp'),
+    path('stack_search/', include('sfapp.urls')),
 ]
